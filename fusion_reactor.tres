@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ComponentPattern" load_steps=4 format=3 uid="uid://c6davb4qt3jsk"]
+
+[ext_resource type="Script" path="res://component_parameter.gd" id="1_280eg"]
+[ext_resource type="Script" path="res://component_pattern.gd" id="2_mm2tr"]
+[ext_resource type="Resource" uid="uid://1hapccw2qhw6" path="res://reaction_chamber.tres" id="3_b0jsl"]
+
+[resource]
+script = ExtResource("2_mm2tr")
+display_name = "Fusion Reactor"
+shape = 0
+parameters = Array[ExtResource("1_280eg")]([])
+subcomponents = Array[ExtResource("2_mm2tr")]([ExtResource("3_b0jsl")])
