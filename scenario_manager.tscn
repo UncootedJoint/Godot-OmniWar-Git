@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://byl01h4hfr6gq"]
+
+[ext_resource type="Script" path="res://scenario_manager.gd" id="1_ehgmc"]
+
+[node name="ScenarioManager" type="Node"]
+script = ExtResource("1_ehgmc")
