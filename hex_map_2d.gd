@@ -1,34 +1,40 @@
 class_name HexMap2D extends Node2D
 
-@export var root_hex:HexData
+@onready var scenario:ScenarioManager = $/root/ScenarioManager
+@onready var tile_scn = load("res://../hex_tile_2d.tscn")
+
 @export var active_hex:HexData
+var active_offset:HexVector2D
 
-var visible_hexes:Array[HexTile2D] = []
-
-func _init(root:HexData, start:HexData) -> void:
-	root_hex = root
+func _init(start:HexData) -> void:
 	active_hex = start
+	active_offset = HexVector2D.new(active_hex.coords_q,active_hex.coords_r,active_hex.coords_a)
 
 func _ready() -> void:
+	scenario.connect("scenario_map_zoomed_in", _on_scenario_zoomed_in)
+	scenario.connect("scenario_map_zoomed_out", _on_scenario_zoomed_out)
+	populate_hexes()
+
+func _on_scenario_zoomed_in():
+	populate_hexes()
+
+func _on_scenario_zoomed_out():
 	populate_hexes()
 
 func populate_hexes() -> void:
-	var new_hexes:Array[HexTile2D] = []
+	for node in self.get_children():
+		node.queue_free()
 	
-	for subhex in active_hex.subhexes:
-			var new_hex = HexTile2D.build(subhex)
-			for test_hex in new_hexes:
-				if new_hex.local_coords.magnitude_2d(new_hex.local_coords.subtract(test_hex.local_coords)) != 0:
-					new_hexes.append(new_hex)
+	var queue:Array[HexData] = []
+	for hex in active_hex.subhexes:
+		queue.append(hex)
+	var neighbors = active_hex.get_neighbors()
+	for neighbor in neighbors:
+		for hex in neighbor.subhexes:
+			if queue.has(hex) == false:
+				queue.append(hex)
 	
-	for hex in active_hex.get_neighbors():
-		for subhex in hex.subhexes:
-			var new_hex = HexTile2D.build(subhex)
-			new_hex.local_coords.offset(HexVector2D.new(active_hex.local_coords.q-hex.local_coords_q, active_hex.local_coords.r-hex.local_coords_r, active_hex.local_coords.a-hex.local_coords_a), hex.hex_spacing)
-			for test_hex in new_hexes:
-				if new_hex.local_coords.magnitude_2d(new_hex.local_coords.subtract(test_hex.local_coords)) != 0:
-					new_hexes.append(new_hex)
-	
-	for hex in new_hexes:
-		if visible_hexes.has(hex) == false:
-			visible_hexes.append(hex)
+	for data in queue:
+		var new_hex = tile_scn.instantiate()
+		self.add_child(new_hex)
+		new_hex.setup(data,active_offset)

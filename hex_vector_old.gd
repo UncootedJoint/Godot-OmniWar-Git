@@ -12,7 +12,7 @@ func add(added :HexVector2D):
 func subtract(subtracted :HexVector2D):
 	return HexVector2D.new(self.q - subtracted.q, self.r - subtracted.r, self.s - subtracted.s)
 
-func magnitude(vector : HexVector2D = self):
+func magnitude(vector : HexVectorOld = self):
 	return abs(vector.q) + abs(vector.r) + abs(vector.s) / 2
 
 func dist_between(start, target):
@@ -23,7 +23,7 @@ func bearing(vector : HexVector2D):
 	pass
 	
 func constrain(vector:HexVector2D):
-	var con_vec = HexVector2D.new()
+	var con_vec = HexVectorOld.new()
 	# implement logic here
 	if con_vec.q + con_vec.r + con_vec.s == 0:
 		return con_vec

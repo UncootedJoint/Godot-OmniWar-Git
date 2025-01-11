@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="HexData" load_steps=4 format=3 uid="uid://gxmpsxlh5264"]
+
+[ext_resource type="Script" path="res://hex_data.gd" id="1_j4roa"]
+[ext_resource type="Resource" uid="uid://ci5cg02a6xfjr" path="res://hex_1000_0_0.tres" id="2_unabx"]
+[ext_resource type="Resource" uid="uid://dddims5vrxmxr" path="res://hex_10_0_0.tres" id="3_hbiux"]
+
+[resource]
+script = ExtResource("1_j4roa")
+coords_q = 0
+coords_r = 0
+coords_a = 0
+size = 100
+spacing = 10
+parent_hex = ExtResource("2_unabx")
+neighbors = Array[ExtResource("1_j4roa")]([])
+subhexes = Array[ExtResource("1_j4roa")]([ExtResource("3_hbiux"), null])

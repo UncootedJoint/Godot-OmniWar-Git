@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://byl01h4hfr6gq"]
+[gd_scene load_steps=3 format=3 uid="uid://byl01h4hfr6gq"]
 
 [ext_resource type="Script" path="res://scenario_manager.gd" id="1_ehgmc"]
+[ext_resource type="Script" path="res://scenario_camera.gd" id="2_coghq"]
 
 [node name="ScenarioManager" type="Node"]
 script = ExtResource("1_ehgmc")
+
+[node name="ScenarioCamera" type="Camera2D" parent="."]
+script = ExtResource("2_coghq")
+
+[connection signal="camera_zoom_limit_in" from="ScenarioCamera" to="." method="_on_camera_zoom_limit_in"]
+[connection signal="camera_zoom_limit_out" from="ScenarioCamera" to="." method="_on_camera_zoom_limit_out"]

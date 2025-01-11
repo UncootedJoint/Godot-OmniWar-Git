@@ -1,27 +1,20 @@
 class_name HexTile2D extends Node2D
 
-@export var tile_data: HexData
-static var scene:PackedScene = load("res://hex_tile_2d.tscn")
+@export var data: HexData
+
 @export var image:Sprite2D
+var pixel_spcaing:int
 
 var local_coords:HexVector2D
-var global_coords:HexVector2D
-
-static func build(data:HexData) -> HexTile2D:
-	var new_hex = scene.instantiate()
-	new_hex.tile_data = data
-	return new_hex
-
-func _init() -> void:
-	pass
 
 func _ready() -> void:
-	self.global_position = self.local_coords.hex_to_cartesian()
+	pixel_spcaing = 140
 
-func get_neighbors() -> Array[HexData]:
-	var neighbors :Array[HexData] = []
-	for hex in self.parent_hexes:
-		for sibling in hex.subhexes:
-			if sibling.local_coords.dist_between(self.local_coords) <= 1:
-				neighbors.append(hex)
-	return neighbors
+func setup(hex_data:HexData,parent_offset:HexVector2D=HexVector2D.new(0,0,0)) -> void:
+	data = hex_data
+	local_coords = HexVector2D.new(data.coords_q, data.coords_r, data.coords_a)
+	local_coords.offset(HexVector2D.new(data.parent.coords_q,data.parent.coords_r,data.parent.coords_a).subtract(parent_offset),data.parent_hex.spacing)
+	position = Vector2(local_coords.hex_to_cartesian(self.local_coords, pixel_spcaing))
+
+func update_position() -> void:
+	pass

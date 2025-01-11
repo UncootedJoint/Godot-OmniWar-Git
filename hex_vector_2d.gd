@@ -21,9 +21,9 @@ func scale_in_place(factor:float = 1.0) -> HexVector2D:
 	self.a = self.a * factor
 	return self
 
-func offset(offset:HexVector2D, factor:int = 1) -> HexVector2D:
-	offset = offset.scale(factor)
-	self.subtract(offset)
+func offset(offset_in:HexVector2D, factor:int = 1) -> HexVector2D:
+	var offset_vec = offset_in.scale(factor)
+	self.subtract(offset_vec)
 	return self
 
 func magnitude_2d(vector : HexVector2D = self) -> int:
@@ -36,7 +36,7 @@ func magnitude_2d(vector : HexVector2D = self) -> int:
 
 func magnitude_3d(vector : HexVector2D = self) -> float:
 	var vec2 = Vector2(vector.magnitude_2d(), vector.a)
-	return vec2.length()
+	return round(vec2.length())
 
 func vector_to(vector : HexVector2D) -> HexVector2D:
 	return self.subtract(vector)
