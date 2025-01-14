@@ -3,12 +3,12 @@ class_name HexMap2D extends Node2D
 @onready var scenario:ScenarioManager = $/root/ScenarioManager
 @onready var tile_scn = load("res://../hex_tile_2d.tscn")
 
-@export var active_hex:HexData
-var active_offset:HexVector2D
+var origin:HexVector2D
+var map_scale:int
 
-func _init(start:HexData) -> void:
-	active_hex = start
-	active_offset = HexVector2D.new(active_hex.coords_q,active_hex.coords_r,active_hex.coords_a)
+func _init(start_coords:HexVector2D,start_scale:int) -> void:
+	origin = start_coords
+	map_scale = start_scale
 
 func _ready() -> void:
 	scenario.connect("scenario_map_zoomed_in", _on_scenario_zoomed_in)
@@ -24,17 +24,7 @@ func _on_scenario_zoomed_out():
 func populate_hexes() -> void:
 	for node in self.get_children():
 		node.queue_free()
-	
-	var queue:Array[HexData] = []
-	for hex in active_hex.subhexes:
-		queue.append(hex)
-	var neighbors = active_hex.get_neighbors()
-	for neighbor in neighbors:
-		for hex in neighbor.subhexes:
-			if queue.has(hex) == false:
-				queue.append(hex)
-	
-	for data in queue:
-		var new_hex = tile_scn.instantiate()
-		self.add_child(new_hex)
-		new_hex.setup(data,active_offset)
+	for coords in origin.get_coords_in_radius(2):
+		var new_tile = tile_scn.instantiate()
+		add_child(new_tile)
+		new_tile.setup(HexVector2D.new(coords.q,coords.r,map_scale))

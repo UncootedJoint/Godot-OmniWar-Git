@@ -6,7 +6,7 @@ signal camera_zoom_limit_out
 @export var min_zoom = .2
 @export var max_zoom = 3
 
-var pan_speed = 50
+var pan_speed = 500
 var zoom_speed = Vector2(2,2)
 
 func _process(delta: float) -> void:
