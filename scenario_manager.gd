@@ -14,7 +14,8 @@ var time_scale:int
 var formation_scale:int
 
 func _process(delta: float) -> void:
-	print(map.map_scale)
+	#print(map.map_scale)
+	return
 
 func _ready() -> void:
 	map = HexMap2D.new(

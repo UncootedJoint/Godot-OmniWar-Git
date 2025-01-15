@@ -11,7 +11,8 @@ var pan_speed = 500
 var zoom_speed = Vector2(3,3)
 
 func _process(delta: float) -> void:
-	print(str(position) + str(zoom.x))
+	#print(str(position) + str(zoom.x))
+	return
 
 func _on_scenario_map_zoomed_in() -> void:
 	zoom.x = max_zoom - (zoom.x - min_zoom)
@@ -52,6 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func camera_pan():
 	var vector_pos = HexVector2D.cartesian_to_hex(position, HexTile2D.pixel_spacing)
+	print("vector: "+str(vector_pos.q) +", "+ str(vector_pos.r))
 	if vector_pos.magnitude_2d() > 6:
 		vector_pos.clamp_by_mag2d(6)
 		camera_pan_limit.emit(vector_pos)

@@ -29,6 +29,7 @@ func _on_scenario_map_panned(offset:HexVector2D):
 	populate_hexes()
 
 func populate_hexes() -> void:
+	print("origin: "+str(origin.q) + ", "+str(origin.r))
 	for node in self.get_children():
 		node.queue_free()
 	for coords in origin.get_coords_in_radius(25):
