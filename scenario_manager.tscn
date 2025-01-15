@@ -2,14 +2,18 @@
 
 [ext_resource type="Script" path="res://scenario_manager.gd" id="1_ehgmc"]
 [ext_resource type="Script" path="res://scenario_camera.gd" id="2_coghq"]
-[ext_resource type="Resource" uid="uid://lmgp2yu5jqwb" path="res://test_scenario.tres" id="2_osrf4"]
+[ext_resource type="Resource" uid="uid://lmgp2yu5jqwb" path="res://scenarios/test_scenario.tres" id="2_osrf4"]
 
 [node name="ScenarioManager" type="Node"]
 script = ExtResource("1_ehgmc")
 scenario_data = ExtResource("2_osrf4")
 
 [node name="ScenarioCamera" type="Camera2D" parent="."]
+limit_smoothed = true
 script = ExtResource("2_coghq")
 
+[connection signal="scenario_map_zoomed_in" from="." to="ScenarioCamera" method="_on_scenario_map_zoomed_in"]
+[connection signal="scenario_map_zoomed_out" from="." to="ScenarioCamera" method="_on_scenario_map_zoomed_out"]
+[connection signal="camera_pan_limit" from="ScenarioCamera" to="." method="_on_camera_pan_limit"]
 [connection signal="camera_zoom_limit_in" from="ScenarioCamera" to="." method="_on_camera_zoom_limit_in"]
 [connection signal="camera_zoom_limit_out" from="ScenarioCamera" to="." method="_on_camera_zoom_limit_out"]

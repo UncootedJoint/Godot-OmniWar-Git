@@ -30,7 +30,7 @@ func offset(offset_in:HexVector2D, factor:int = 1) -> HexVector2D:
 	self.subtract(offset_vec)
 	return self
 
-func magnitude_2d(vector : HexVector2D = self) -> int:
+func magnitude_2d(vector : HexVector2D = self) -> float:
 	if vector.q * vector.r <= 0:
 		return abs(vector.q) + abs(vector.r)
 	elif vector.q * vector.r > 0:
@@ -41,6 +41,17 @@ func magnitude_2d(vector : HexVector2D = self) -> int:
 func magnitude_3d(vector : HexVector2D = self) -> float:
 	var vec2 = Vector2(vector.magnitude_2d(), vector.a)
 	return round(vec2.length())
+
+func clamp_by_mag2d(limit:float, vector:HexVector2D = self):
+	var mag = vector.magnitude_2d()
+	vector.q = vector.q * (limit/mag)
+	vector.r = vector.r * (limit/mag)
+	return
+
+func clamp_by_mag3d(limit:float, vector:HexVector2D = self):
+	var mag = vector.magnitude_3d()
+	vector.scale_in_place(limit/mag)
+	return
 
 func vector_to(vector : HexVector2D) -> HexVector2D:
 	return self.subtract(vector)
@@ -70,7 +81,7 @@ func hex_to_cartesian(hex:HexVector2D = self, pixel_spacing = 1) -> Vector2:
 	var cartesian:Vector2 = Vector2(cart_x, cart_y)
 	return cartesian
 
-func cartesian_to_hex(cart:Vector2, pixel_spacing) -> HexVector2D:
+static func cartesian_to_hex(cart:Vector2, pixel_spacing) -> HexVector2D:
 	#this can't be right
 	var hex_s = (sqrt(3)/3 * cart.x - 1.0/3 * cart.y)/pixel_spacing
 	var hex_r = (2.0/3 * cart.y)/pixel_spacing + hex_s

@@ -3,7 +3,7 @@ class_name HexTile2D extends Node2D
 @export var data: HexData
 
 @export var image:Sprite2D
-const pixel_spcaing:int = 140
+static var pixel_spacing:int = 140
 
 var local_coords:HexVector2D
 
@@ -14,7 +14,7 @@ func setup(scn_coords:HexVector2D) -> void:
 	var map = get_parent()
 	data = self.get_data(Vector3i(scn_coords.q+map.origin.q,scn_coords.r+map.origin.r,map.map_scale),map.scenario.file_path)
 	local_coords = HexVector2D.new(data.coords_q,data.coords_r,data.coords_a).subtract(map.origin)
-	position = Vector2(local_coords.hex_to_cartesian(self.local_coords, pixel_spcaing))
+	position = Vector2(local_coords.hex_to_cartesian(self.local_coords, pixel_spacing))
 
 func get_data(global_coords:Vector3i,data_loc:String) -> HexData:
 	var data_path:String = data_loc + "/map_data/hx_%s_%s_%s.tres" % [global_coords.z,global_coords.x,global_coords.y]

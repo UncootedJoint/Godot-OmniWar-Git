@@ -8,9 +8,13 @@ var map:HexMap2D
 
 signal scenario_map_zoomed_in
 signal scenario_map_zoomed_out
+signal scenario_map_panned
 
 var time_scale:int
 var formation_scale:int
+
+func _process(delta: float) -> void:
+	print(map.map_scale)
 
 func _ready() -> void:
 	map = HexMap2D.new(
@@ -29,9 +33,12 @@ func _ready() -> void:
 	return
 
 func _on_camera_zoom_limit_in():
-	
-	scenario_map_zoomed_in.emit()
+	if map.map_scale > scenario_data.min_map_scale:
+		scenario_map_zoomed_in.emit()
 
 func _on_camera_zoom_limit_out():
-	
-	scenario_map_zoomed_out.emit()
+	if map.map_scale < scenario_data.max_map_scale:
+		scenario_map_zoomed_out.emit()
+
+func _on_camera_pan_limit(offset) -> void:
+	scenario_map_panned.emit(offset)

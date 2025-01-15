@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HexData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://hex_data.gd" id="1_es4nv"]
+
+[resource]
+script = ExtResource("1_es4nv")
+coords_q = 49
+coords_r = 28
+coords_a = 0
+size = 10
