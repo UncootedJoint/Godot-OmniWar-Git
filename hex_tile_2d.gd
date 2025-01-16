@@ -3,7 +3,7 @@ class_name HexTile2D extends Node2D
 @export var data: HexData
 
 @export var image:Sprite2D
-static var pixel_spacing:int = 140
+static var pixel_spacing:int = 128
 
 var local_coords:HexVector2D
 

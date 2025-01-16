@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HexData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://hex_data.gd" id="1_yj4ul"]
+
+[resource]
+script = ExtResource("1_yj4ul")
+coords_q = -1
+coords_r = -15
+coords_a = 0
+size = 1

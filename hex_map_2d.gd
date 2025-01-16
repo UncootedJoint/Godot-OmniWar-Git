@@ -2,6 +2,7 @@ class_name HexMap2D extends Node2D
 
 @onready var scenario:ScenarioManager = $/root/ScenarioManager
 @onready var tile_scn = load("res://../hex_tile_2d.tscn")
+@onready var parent_scn = load("res://parent_hex_tile_2d.tscn")
 
 var origin:HexVector2D
 var map_scale:int
@@ -36,3 +37,7 @@ func populate_hexes() -> void:
 		var new_tile = tile_scn.instantiate()
 		add_child(new_tile)
 		new_tile.setup(HexVector2D.new(coords.q,coords.r,map_scale))
+		if fmod(coords.q,10.0) == 0 and fmod(coords.r,10.0) == 0:
+			var parent_tile = parent_scn.instantiate()
+			add_child(parent_tile)
+			parent_tile.setup(coords, origin)
