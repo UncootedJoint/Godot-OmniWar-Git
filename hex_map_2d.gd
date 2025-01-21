@@ -15,7 +15,8 @@ func _ready() -> void:
 	scenario.connect("scenario_map_zoomed_in", _on_scenario_map_zoomed_in)
 	scenario.connect("scenario_map_zoomed_out", _on_scenario_map_zoomed_out)
 	scenario.connect("scenario_map_panned", _on_scenario_map_panned)
-	populate_hexes()
+	scenario.camera.connect("camera_panned", _on_camera_panned)
+	call_deferred("populate_hexes")
 
 func _on_scenario_map_zoomed_in():
 	map_scale = map_scale / 10
@@ -29,14 +30,18 @@ func _on_scenario_map_panned(offset:HexVector2D):
 	origin = origin.add(offset)
 	populate_hexes()
 
+func _on_camera_panned():
+	populate_hexes()
+
 func populate_hexes() -> void:
-	print("origin: "+str(origin.q) + ", "+str(origin.r))
-	for node in self.get_children():
+	for node in get_children():
 		node.queue_free()
+	
 	for coords in origin.get_coords_in_radius(25):
 		var new_tile = tile_scn.instantiate()
 		add_child(new_tile)
 		new_tile.setup(HexVector2D.new(coords.q,coords.r,map_scale))
+		
 		if fmod(coords.q,10.0) == 0 and fmod(coords.r,10.0) == 0:
 			var parent_tile = parent_scn.instantiate()
 			add_child(parent_tile)

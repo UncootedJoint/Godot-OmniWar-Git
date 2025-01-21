@@ -83,6 +83,7 @@ func hex_to_cartesian(hex:HexVector2D = self, pixel_spacing = 1) -> Vector2:
 
 static func cartesian_to_hex(cart:Vector2, pixel_spacing) -> HexVector2D:
 	#this can't be right
+	#though it seems like it is?
 	var hex_s = (sqrt(3)/3 * cart.x - 1.0/3 * cart.y)/pixel_spacing
 	var hex_r = (2.0/3 * cart.y)/pixel_spacing + hex_s
 	var hex_q = hex_s
