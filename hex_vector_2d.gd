@@ -1,4 +1,4 @@
-class_name HexVector2D extends Node
+class_name HexVector2D extends RefCounted
 
 var q:float
 var r:float
@@ -8,6 +8,9 @@ func _init(new_q :float, new_r :float, new_a:=0.0):
 	q = new_q
 	r = new_r
 	a = new_a
+
+func as_int(vec:HexVector2D = self) -> HexVector2D:
+	return HexVector2D.new(int(vec.q),int(vec.r),int(vec.a))
 
 func add(added :HexVector2D):
 	return HexVector2D.new(self.q + added.q, self.r + added.r, self.a + added.a)

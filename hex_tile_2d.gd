@@ -1,6 +1,6 @@
 class_name HexTile2D extends Node2D
 
-@export var data: HexData
+@export var data : Dictionary
 
 @export var image:Sprite2D
 static var pixel_spacing:int = 128
@@ -8,26 +8,51 @@ static var pixel_spacing:int = 128
 var local_coords:HexVector2D
 
 func _ready() -> void:
-	pass
+	pass 
 
-func setup(scn_coords:HexVector2D) -> void:
-	var map = get_parent()
-	data = self.get_data(Vector3i(scn_coords.q+map.origin.q,scn_coords.r+map.origin.r,map.map_scale),map.scenario.file_path)
-	local_coords = HexVector2D.new(data.coords_q,data.coords_r,data.coords_a).subtract(map.origin)
+func setup(scn_coords:HexVector2D, map) -> void:
+	data = fetch_data(map.db, Vector3i(scn_coords.q,scn_coords.r,map.map_scale))
+	print(data)
+	local_coords = HexVector2D.new(data["coords_q"],data["coords_r"],data["coords_a"]).subtract(map.origin)
 	position = Vector2(local_coords.hex_to_cartesian(self.local_coords, pixel_spacing))
+	#if self.data.texture != null:
+		#var new_tex = $HexTexture
+		#new_tex.texture = data.texture
 
-func get_data(global_coords:Vector3i,data_loc:String) -> HexData:
-	var data_path:String = data_loc + "/map_data/hx_%s_%s_%s.tres" % [global_coords.z,global_coords.x,global_coords.y]
-	var new_data = load(data_path)
-	if new_data == null:
-		new_data = generate_hex_data(data_loc, global_coords)
-	return new_data
+func fetch_data(db:SQLite, coords:Vector3i) -> Dictionary:
+	var selected = db.select_rows(
+		"Hexes",
+		"size = "+str(coords.z)+" AND coords_q = "+str(coords.x)+" AND coords_r = "+str(coords.y),
+		["*"]
+		)
+	var result:Dictionary = {}
+	var length = len(selected)
+	if length == 1:
+		result = selected[0]
+	elif length == 0:
+		result = generate_hex_data(coords, db)
+	else:
+		pass #error handling tbd
+	return result
 
-func generate_hex_data(folder:String, coords:Vector3i) -> HexData:
-	var new_data:HexData = HexData.new(HexVector2D.new(coords.x,coords.y), coords.z)
-	var full_path: String = "%s/map_data/hx_%s_%s_%s.tres" % [folder, coords.z, coords.x, coords.y]
-	ResourceSaver.save(new_data, full_path)
-	return new_data
+
+func generate_hex_data(coords:Vector3i, db) -> Dictionary:
+	var new_data:Dictionary = {
+		size = coords.z,
+		coords_q = coords.x,
+		coords_r = coords.y,
+		coords_a = 0
+	}
+	db.insert_row("Hexes", new_data)
+	var selected = db.select_rows(
+		"Hexes",
+		"size = "+str(coords.z)+" AND coords_q = "+str(coords.x)+" AND coords_r = "+str(coords.y),
+		["*"]
+		)
+	var result:Dictionary
+	if len(selected) == 1:
+		result = selected[0]
+	return result
 
 func update_position() -> void:
 	pass

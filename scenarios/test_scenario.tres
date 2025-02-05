@@ -4,7 +4,11 @@
 
 [resource]
 script = ExtResource("1_fmq55")
+start_time_scale = 0
+time_limit = 0
 start_coords = Vector3i(0, 0, 0)
-start_scale = 10
+start_map_scale = 100
 max_map_scale = 1000
 min_map_scale = 1
+start_formation_scale = 1
+commands = Array[Array]([])
