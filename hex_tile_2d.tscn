@@ -10,3 +10,8 @@ script = ExtResource("1_5wp5k")
 texture = ExtResource("2_rkhk6")
 
 [node name="HexTexture" type="Sprite2D" parent="."]
+
+[node name="ParentHexBorder" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(10, 10)
+texture = ExtResource("2_rkhk6")

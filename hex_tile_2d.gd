@@ -12,8 +12,10 @@ func _ready() -> void:
 
 func setup(scn_coords:HexVector2D, map) -> void:
 	data = fetch_data(map.db, Vector3i(scn_coords.q,scn_coords.r,map.map_scale))
-	print(data)
 	local_coords = HexVector2D.new(data["coords_q"],data["coords_r"],data["coords_a"]).subtract(map.origin)
+	#if not fmod(local_coords.q,10.0) == 0 and fmod(local_coords.r,10.0) == 0:
+		#var parent = $ParentHexBorder
+		#parent.queue_free()
 	position = Vector2(local_coords.hex_to_cartesian(self.local_coords, pixel_spacing))
 	#if self.data.texture != null:
 		#var new_tex = $HexTexture
