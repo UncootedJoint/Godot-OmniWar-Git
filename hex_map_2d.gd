@@ -103,8 +103,8 @@ func populate_hexes_simple():
 		new_tile.setup(coords,self)
 		if fmod(coords.q,10.0) == 0 and fmod(coords.r,10.0) == 0:
 			var parent_tile = parent_scn.instantiate()
-			add_child(parent_tile)
 			parent_tile.setup(coords, origin)
+			add_child(parent_tile)
 
 func queue_hexes_for_load() -> void:
 	if map_thread.is_alive():
@@ -124,8 +124,12 @@ func build_tiles_from_queue():
 	for coords in load_queue:
 		map_semaphore.wait()
 		var new_tile = tile_scn.instantiate()
+		#new_tile.call_deferred("setup",coords,self)
+		new_tile.setup(coords,self)
 		self.call_deferred("add_child",new_tile)
-		#new_tile.setup(coords,self)
-		new_tile.call_deferred("setup",coords,self)
+		if fmod(coords.q,10.0) == 0 and fmod(coords.r,10.0) == 0:
+			var parent_tile = parent_scn.instantiate()
+			parent_tile.setup(coords, origin)
+			call_deferred("add_child",parent_tile)
 	
 	map_thread.call_deferred("wait_to_finish")
