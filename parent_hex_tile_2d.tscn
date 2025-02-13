@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgxi64in3q2oh"]
+
+[ext_resource type="Texture2D" uid="uid://77ro0lq2sj6c" path="res://texture_hex_border.png" id="1_4h3yl"]
+[ext_resource type="Script" path="res://parent_hex_tile_2d.gd" id="1_mhk8t"]
+
+[node name="ParentTile" type="Node2D"]
+script = ExtResource("1_mhk8t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("1_4h3yl")

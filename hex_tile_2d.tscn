@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bah3tdx00ucth"]
+
+[ext_resource type="Script" path="res://hex_tile_2d.gd" id="1_5wp5k"]
+[ext_resource type="Texture2D" uid="uid://77ro0lq2sj6c" path="res://texture_hex_border.png" id="2_rkhk6"]
+
+[node name="Hex Tile" type="Node2D"]
+script = ExtResource("1_5wp5k")
+
+[node name="Border" type="Sprite2D" parent="."]
+texture = ExtResource("2_rkhk6")
+
+[node name="HexTexture" type="Sprite2D" parent="."]
+
+[node name="ParentHexBorder" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(10, 10)
+texture = ExtResource("2_rkhk6")

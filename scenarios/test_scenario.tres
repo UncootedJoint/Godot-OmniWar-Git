@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ScenarioData" load_steps=2 format=3 uid="uid://lmgp2yu5jqwb"]
+
+[ext_resource type="Script" path="res://scenario_data.gd" id="1_fmq55"]
+
+[resource]
+script = ExtResource("1_fmq55")
+start_time_scale = 0
+time_limit = 0
+start_coords = Vector3i(0, 0, 0)
+start_map_scale = 100
+max_map_scale = 1000
+min_map_scale = 1
+start_formation_scale = 1
+commands = Array[Array]([])
