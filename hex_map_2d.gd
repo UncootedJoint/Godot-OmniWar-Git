@@ -113,7 +113,6 @@ func queue_hexes_for_load() -> void:
 	for node in get_children():
 		node.queue_free()
 	
-	
 	map_thread.start(build_tiles_from_queue)
 
 func build_tiles_from_queue():

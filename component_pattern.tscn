@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1t143hidrkit"]
+
+[ext_resource type="Script" path="res://component_pattern.gd" id="1_y01lh"]
+
+[node name="ComponentPattern" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_y01lh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Component Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Component Type"
+
+[node name="TechLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "   TL:"
+
+[node name="TechLevel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="InputParamsVBox" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CalcParamsVBox" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SubCompVBox" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
