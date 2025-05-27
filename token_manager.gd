@@ -12,6 +12,6 @@ func _ready() -> void:
 func _on_scenario_turn_ended():
 	pass
 
-func create_elemants():
+func create_elements():
 	for data in scenario.scenario_data.commands:
-		
+		pass

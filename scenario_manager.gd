@@ -30,10 +30,14 @@ enum F_SCALE{
 @onready var camera:ScenarioCamera = $ScenarioCamera
 var map:HexMap2D
 
+
+signal scenario_turn_ended
 signal scenario_map_zoomed_in
 signal scenario_map_zoomed_out
 signal scenario_map_panned
-signal scenario_turn_ended
+signal scenario_time_stepped_up
+signal scenario_time_stepped_down
+
 
 var time_scale:int
 var formation_scale:int

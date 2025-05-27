@@ -28,10 +28,10 @@ text = "   TL:"
 [node name="TechLevel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="InputParamsVBox" type="VBoxContainer" parent="VBoxContainer"]
+[node name="CalcParamsVBox" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="CalcParamsVBox" type="VBoxContainer" parent="VBoxContainer"]
+[node name="InputParamsVBox" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="SubCompVBox" type="VBoxContainer" parent="VBoxContainer"]

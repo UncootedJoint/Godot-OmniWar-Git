@@ -20,9 +20,13 @@ layout_mode = 2
 layout_mode = 2
 text = "Name goes here"
 
-[node name="ComplexitySlider" type="HSlider" parent="VBoxContainer"]
+[node name="InputSlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+rounded = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -43,4 +47,4 @@ text = "Complexity:"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="value_changed" from="VBoxContainer/ComplexitySlider" to="." method="_on_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/InputSlider" to="." method="_on_value_changed"]

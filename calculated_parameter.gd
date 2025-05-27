@@ -1,7 +1,6 @@
 class_name CalcParameter extends PanelContainer
 
 @export var param_id:int
-@export var db_path:String = "res://database/universe_test.db"
 
 @export var equation:String
 @export var input1:float
@@ -26,7 +25,8 @@ func calculate():
 		"CONSTANT":
 			value = constant
 
-func fetch_data(id):
+func fetch_data(id, db_path):
+	param_id = id
 	var db = SQLite.new()
 	db.set_path(db_path)
 	db.open_db()
@@ -35,6 +35,8 @@ func fetch_data(id):
 		"ID = "+str(id),
 		["*"]
 	)
+	data = data[0]
+	
 	equation = data.equation
 	constant = data.constant
 	
